@@ -12,5 +12,5 @@ _again:
 		jmp _again ; short ? jmp short _again
 
 _end:
-		mov rax, rcx ; only rax returns?
+		mov rax, rcx ; only rax returns? push rax ? rsp returns
 		ret
