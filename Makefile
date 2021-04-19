@@ -6,7 +6,7 @@
 #    By: lpeggy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 19:44:21 by lpeggy            #+#    #+#              #
-#    Updated: 2021/04/16 20:17:29 by lpeggy           ###   ########.fr        #
+#    Updated: 2021/04/19 23:01:15 by lpeggy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libasm.a
 
 HEADER = libasm.h
 
-SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s
+SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 
 #SRCS_DIR = ./srcs
 #OBJS_DIR = ./objs
