@@ -3,22 +3,31 @@ global _ft_strcmp
 section .text
 
 _ft_strcmp:
+		push rsi
+		push rdi
 		xor rax, rax
-		xor rcx, rcx
+		xor rbx, rbx
 
-_again:
-		cmp byte [rdi + rcx], 0
-		jz _exit
-		cmp byte [rsi + rcx], 0
-		jz _exit
-		cmp byte [rdi + rcx], [rsi + rcx] ; two mem operands - invalid
+.again:
+		mov al, [rdi]
+		mov bl, [rsi]
+		cmp al, bl
+		;cmp [rsi], al
 		jne _exit
-		inc rcx
-		jmp _again
-
-
-		; rsi - rdi, ret 
+		;cmp bl, 0
+		cmp byte [rsi], 0 ; faster than cmp bl, 0 (?)
+		jz _exit
+		;cmp al, 0
+		cmp byte [rdi], 0
+		jz _exit
+		inc rsi
+		inc rdi
+		jmp .again
 
 _exit:
-		; sub rsi rdi
+		;sub rdi, rsi
+		;sub al, bl
+		sub rax, rbx
+		pop rsi
+		pop rdi
 		ret

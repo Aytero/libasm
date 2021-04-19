@@ -3,6 +3,7 @@ global _ft_strlen
 section .text
 
 _ft_strlen:
+		push rcx
 		xor rcx, rcx
 
 _again:
@@ -13,4 +14,5 @@ _again:
 
 _end:
 		mov rax, rcx ; only rax returns? push rax ? rsp returns
+		pop	rcx
 		ret

@@ -14,7 +14,7 @@ NAME = libasm.a
 
 HEADER = libasm.h
 
-SRCS = ft_strlen.s ft_strcpy.s
+SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s
 
 #SRCS_DIR = ./srcs
 #OBJS_DIR = ./objs
