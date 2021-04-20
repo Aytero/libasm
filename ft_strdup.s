@@ -1,27 +1,24 @@
-global _ft_strdup
+extern	_ft_strlen
+extern	_ft_strcpy
+extern	_malloc
+global	_ft_strdup
 
-section .text
+section	.text
 
-_ft_strdup:
-		xor rax, rax
-		xor rcx, rcx
-		lea rdi, [str2] ; load str in rdi
-.loop1:	cmp byte [rsi + rcx], 0
-		je .next
-		inc rcx
-		jmp .loop1
-.next:	mov [len], rcx
-.loop2:	cmp byte [rsi], 0
-		je _exit
-		mov al, [rsi]
-		mov [rdi], al
-		inc rsi
-		inc rdi
-		loop .loop2
-_exit:	mov rax, rdi
+
+_error:
 		ret
 
-section .data
-		len dw 0
-section .bss
-		str2 resb len
+_ft_strdup:
+		push rdi
+		;xor rax, rax
+		call _ft_strlen
+		inc rax				; len + 1 tho works without it
+		mov rdi, rax		; size for malloc
+		call _malloc
+		cmp rax, 0			; check malloc return
+		je _error
+		mov rdi, rax		; rdi starts at malloc return ptr
+		pop rsi
+		call _ft_strcpy
+		ret

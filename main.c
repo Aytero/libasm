@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/syscall.h>
+#include <sys/errno.h>
 #include "libasm.h"
 
 size_t	ft_strlen(char *str);
@@ -40,15 +41,18 @@ int		main(int argc, char **argv)
 	printf("%d\n", ft_strcmp(str6, str7));
 	printf("%zd\n", ft_write(-1, "Hello\n", 6));
 	printf("%zd\n", write(1, NULL, 6));
-	printf("%zd\n", write(-1, "Hello\n", 6));
+	printf("%zd\n", write(1, "Hello\n", 6));
 	printf("%zd\n", ft_write(1, "Hello\n", 6));
 	
 	if (!(fd = open(argv[1], O_RDONLY)))
 		return (-1);
 	if (!(reader = ft_read(fd, buf, 16)))
 		return (-1);
+	printf("%s\n", strerror(errno));
 	printf("reader %d\n", reader);
 	printf("buf |%s|\n", buf);
+	str4 = ft_strdup(str6);
+	printf("%s\n", str4);
 
 	return (0);
 }
