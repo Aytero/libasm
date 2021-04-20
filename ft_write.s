@@ -4,13 +4,10 @@
 	section	.text
 
 _error:
-			push rbx
-			mov rbx, rax
+			push rax
 			call ___error
-			mov [rax], rbx
+			pop qword [rax]
 			mov rax, -1
-			pop rbx
-			;ret
 			jmp _end
 
 _ft_write:
