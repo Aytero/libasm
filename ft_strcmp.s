@@ -5,24 +5,22 @@ section .text
 _ft_strcmp:
 		push rsi
 		push rdi
+		push rbx
 		xor rax, rax
 		xor rbx, rbx
 
-.again:
+.loop:
 		mov al, [rdi]
 		mov bl, [rsi]
 		cmp al, bl
-		;cmp [rsi], al
 		jne _exit
-		;cmp bl, 0
-		cmp byte [rsi], 0 ; faster than cmp bl, 0 (?)
+		test bl, bl
 		jz _exit
-		;cmp al, 0
-		cmp byte [rdi], 0
+		test al, al
 		jz _exit
 		inc rsi
 		inc rdi
-		jmp .again
+		jmp .loop	; add short
 
 _exit:
 		;sub rdi, rsi
@@ -30,4 +28,5 @@ _exit:
 		sub rax, rbx
 		pop rsi
 		pop rdi
+		pop rbx
 		ret

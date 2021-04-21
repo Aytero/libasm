@@ -4,7 +4,7 @@ section .text
 
 _ft_strcpy:	xor rax, rax
 			push rdi
-			push rsi	;not sure if it's useful
+			push rsi
 			cld
 .loop:		lodsb
 			stosb
@@ -13,4 +13,4 @@ _ft_strcpy:	xor rax, rax
 			pop rdi
 			pop rsi
 			mov rax, rdi
-			ret
+_end:		ret

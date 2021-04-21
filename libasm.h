@@ -6,12 +6,13 @@
 /*   By: lpeggy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:44:16 by lpeggy            #+#    #+#             */
-/*   Updated: 2021/04/19 23:01:02 by lpeggy           ###   ########.fr       */
+/*   Updated: 2021/04/21 19:18:35 by lpeggy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBASM_H
 # define LIBASM_H
+# include <stdlib.h>
 
 size_t	ft_strlen(char *str);
 char	*ft_strcpy(char *dst, char *src);
