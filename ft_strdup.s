@@ -13,6 +13,6 @@ _ft_strdup:	push rdi			; more calling prep?
 			test rax, rax		; check malloc return
 			je _exit
 			mov rdi, rax		; rdi starts at malloc return ptr
-			pop rsi				; rsi == rdi ?
+			;pop rsi				; rsi == rdi ?
 			call _ft_strcpy
 _exit:		ret
