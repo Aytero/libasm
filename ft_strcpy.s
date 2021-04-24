@@ -10,7 +10,7 @@ _ft_strcpy:	xor rax, rax
 			stosb
 			cmp al, 0
 			jnz .loop
-			pop rdi
 			pop rsi
+			pop rdi
 			mov rax, rdi
 _end:		ret

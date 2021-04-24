@@ -6,9 +6,9 @@
 _ft_read:	mov rax, 0x02000003		; syscall read
 			syscall
 			jc .error				; syscall error sets jc flag
-			jmp short _end
+			jmp short _end			; ret if no error
 .error:		push rax
 			call ___error
-			pop qword [rax]			; 
-			mov rax, -1
+			pop qword [rax]			; put errno pointer in rax
+			mov rax, -1				; 
 _end:		ret

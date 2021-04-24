@@ -3,20 +3,20 @@ global _ft_strcmp
 section .text
 
 _ft_strcmp:
-		;push rsi
-		;push rdi
-		;push rbx
+		push rsi
+		push rdi
+		push rbx
 		xor rax, rax
 		xor rbx, rbx
 
 .loop:
 		mov al, [rdi]
 		mov bl, [rsi]
-		test bl, bl
+		test bl, bl		; check for \0
 		jz _exit
-		test al, al
+		test al, al		; check for \0
 		jz _exit
-		cmp al, bl
+		cmp al, bl		; compare bytes (symbs)
 		jne _exit
 		inc rsi
 		inc rdi
@@ -26,8 +26,7 @@ _exit:
 		;sub rdi, rsi
 		;sub al, bl
 		sub rax, rbx
-		;pop rsi
-		;pop rdi
-		;pop rbx
-		;add rsp, 8		; sub or add ?
+		pop rbx
+		pop rdi
+		pop rsi
 		ret
