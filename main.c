@@ -82,5 +82,11 @@ int		main(int argc, char **argv)
 	printf("strdup     |%s|\n", strdup(""));
 	printf("ft_strdup  |%s|\n", ft_strdup(""));
 
+
+//	t_list	*elem;
+//	int		d = 8;
+//	ft_list_push_front(&elem, &d);
+//	printf("%p\n", elem->data);
+
 	return (0);
 }

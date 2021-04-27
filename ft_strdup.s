@@ -9,10 +9,10 @@ _ft_strdup:
 			call _ft_strlen
 			push rdi			; more calling prep?
 			inc rax				; len + 1 for \0
-			mov rdi, rax		; size to malloc
+			mov rdi, rax		; size to malloc// use lea
 			call _malloc
 			test rax, rax		; check malloc return
-			je _exit
+			jz _exit
 			mov rdi, rax		; rdi starts at malloc return ptr
 			pop rsi				; rsi = rdi 
 			call _ft_strcpy

@@ -13,18 +13,16 @@ _ft_strcmp:
 		mov al, [rdi]
 		mov bl, [rsi]
 		test bl, bl		; check for \0
-		jz _exit
+		jz _end
 		test al, al		; check for \0
-		jz _exit
+		jz _end
 		cmp al, bl		; compare bytes (symbs)
-		jne _exit
+		jne _end
 		inc rsi
 		inc rdi
 		jmp .loop	; add short
 
-_exit:
-		;sub rdi, rsi
-		;sub al, bl
+_end:
 		sub rax, rbx
 		pop rbx
 		pop rdi
