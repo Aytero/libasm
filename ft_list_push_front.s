@@ -16,8 +16,6 @@ _ft_list_push_front:
 		push rsi
 		push rdi
 
-		xor rbx, rbx
-		mov rbx, [rdi]		; save begin_list ptr
 
 		xor rax, rax
 		mov rdi, 16
@@ -26,9 +24,14 @@ _ft_list_push_front:
 		pop rsi
 		test rax, rax
 		jz _end
+
+		xor rbx, rbx
+		mov rbx, [rdi]		; make rbx a ptr to begin_list
+
 		mov [rax], rsi		; put data in new elem
 		mov [rax + 8], rbx	; elem->next = begin_list
-		mov [rdi], rax
+		;mov [rax + 8], [rdi]
+		mov [rdi], rax		; begin_list = new elem
 
 _end:
 		pop rbx

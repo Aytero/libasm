@@ -15,17 +15,27 @@ _ft_list_sort:
 _cmp:
 		push rsi
 		push rdi
-		mov rbx, rsi		; mov func cmp ptr to rbx
+		mov rdx, rsi		; mov func cmp ptr to rbx
+		; put elem2->data in rsi ?
 		mov rsi, [rsi]		; put str (data) in reg
 		mov rdi, [rdi]
-		call rbx			; call (*cmp)
+		call rdx			; call (*cmp)
 		pop rdi
 		pop rsi
 		cmp rax, 0
 		jle .get_next		; signed condition / jmp if less or equal
 
 _swap:
-		rd
+		mov [rax], rsi	;
+		mov rbx, [rdi]	; save start
+		mov [rax + 8], rbx	; elem2->next = start
+
+;lo:
+;	mov rdi, qword [rbx]		; load first list's var
+;	make smth with the var
+;	mov rbx, qword [rbx + 8]	; move to next elem
+;	cmp rbx, 0					; check if there is next elem
+;	jne lo
 
 _end:
 		ret
