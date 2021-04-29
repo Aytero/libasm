@@ -6,7 +6,7 @@
 #    By: lpeggy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 19:44:21 by lpeggy            #+#    #+#              #
-#    Updated: 2021/04/20 21:28:21 by lpeggy           ###   ########.fr        #
+#    Updated: 2021/04/29 20:45:55 by lpeggy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,12 @@ NAME = libasm.a
 
 HEADER = libasm.h
 
+HEADER_BONUS = libasm_bonus.h
+
 SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 
-SRCS_BONUS = ft_atoi_base.s ft_list_push_front.s ft_list_size.s\
-			 ft_list_sort.s
+SRCS_BONUS = ft_atoi_base_bonus.s ft_list_push_front_bonus.s\
+			 ft_list_size_bonus.s ft_list_sort_bonus.s
 
 #SRCS_DIR = ./srcs
 #OBJS_DIR = ./objs
@@ -30,7 +32,7 @@ OBJS_BONUS = $(SRCS_BONUS:.s=.o)
 
 all: $(NAME)
 
-%.o: %.s $(HEADER)
+%.o: %.s $(HEADER) $(HEADER_BONUS)
 	nasm $(FLAGS) $<
 
 $(NAME): $(OBJS)
@@ -46,11 +48,12 @@ clean:
 	rm -f $(OBJS)
 	rm -f $(OBJS_BONUS)
 #	rm -rf $(OBJS_DIR)
-	rm -f libasm.h.gch
+#	rm -f libasm.h.gch
+#	rm -f libasm_bonus.h.gch
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
