@@ -3,6 +3,9 @@ global	_ft_list_size
 section	.text
 
 _ft_list_size:
+			;push rbp
+			;mov rbp, rsp
+			;sub rsp, 16
 			push rdi
 			xor rax, rax
 

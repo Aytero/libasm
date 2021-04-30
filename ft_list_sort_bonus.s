@@ -14,6 +14,7 @@ _loop:
 		je _end
 
 _cmp:
+		push rdx
 		push rsi
 		push rdi
 		mov rdx, rsi		; mov func cmp ptr to rbx
@@ -23,6 +24,7 @@ _cmp:
 		call rdx			; call (*cmp)
 		pop rdi
 		pop rsi
+		pop rdx
 		cmp rax, 0
 		jg _swap		; signed condition / jmp if less or equal
 
