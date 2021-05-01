@@ -5,7 +5,7 @@ section	.text
 _ft_list_size:
 			;push rbp
 			;mov rbp, rsp
-			;sub rsp, 16
+			;sub rsp, 16 ; depends on local vars
 			push rdi
 			xor rax, rax
 
@@ -18,4 +18,6 @@ _ft_list_size:
 
 _end:
 			pop rdi
+			; mov rsp, rbp
+			; pop rbp
 			ret
