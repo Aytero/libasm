@@ -6,7 +6,7 @@
 #    By: lpeggy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 19:44:21 by lpeggy            #+#    #+#              #
-#    Updated: 2021/04/29 20:45:55 by lpeggy           ###   ########.fr        #
+#    Updated: 2021/05/03 23:39:36 by lpeggy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ HEADER_BONUS = libasm_bonus.h
 SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 
 SRCS_BONUS = ft_atoi_base_bonus.s ft_list_push_front_bonus.s\
-			 ft_list_size_bonus.s ft_list_sort_bonus.s
+			 ft_list_size_bonus.s ft_list_sort_bonus.s\
+			 ft_list_remove_if_bonus.s
 
 #SRCS_DIR = ./srcs
 #OBJS_DIR = ./objs

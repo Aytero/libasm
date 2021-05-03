@@ -1,4 +1,3 @@
-		extern	_ft_strcmp
 		global	_ft_list_sort
 
 section	.text
@@ -9,6 +8,12 @@ _ft_list_sort:
 		;mov rbp, rsp
 		;sub rsp, 16
 		;xor rax, rax
+		
+;		push r8
+;		push r9
+;		push r10
+;		push r11
+
 		mov r11, [rdi]		; save begin_list in ptr
 		mov rdi, [rdi]		; rdi = begin_list (without ptr?)
 
@@ -49,6 +54,10 @@ _swap:
 		mov rdi, r11		; restore rdi 
 		jmp _loop
 _end:
+;		pop r11
+;		pop r10
+;		pop r9
+;		pop r8
 		;mov rsp, rbp
 		;pop rbp
 		ret
