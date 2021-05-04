@@ -1,3 +1,4 @@
+	extern	_free	; allowed in subj
 	global	_ft_list_remove_if
 
 	section	.text
