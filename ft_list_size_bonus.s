@@ -10,10 +10,10 @@ _ft_list_size:
 			xor rax, rax
 
 .loop:
-			cmp rdi, 0
-			je _end
-			mov rdi, [rdi + 8]
-			inc rax
+			test rdi, rdi		; check if node(next) == NULL
+			jz _end				; exit if there is no nodes left
+			mov rdi, [rdi + 8]	; go to next node
+			inc rax				; size++
 			jmp .loop
 
 _end:
