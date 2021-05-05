@@ -25,7 +25,7 @@ SRCS_BONUS = ft_atoi_base_bonus.s ft_list_push_front_bonus.s\
 #SRCS_DIR = ./srcs
 #OBJS_DIR = ./objs
 
-FLAGS = -fmacho64
+FLAGS = -fmacho64 -g
 
 OBJS = $(SRCS:.s=.o)
 
