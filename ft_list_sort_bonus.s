@@ -4,8 +4,8 @@ section	.text
 
 _ft_list_sort:
 
-		;push rbp
-		;mov rbp, rsp
+		push rbp
+		mov rbp, rsp
 		;sub rsp, 16
 		;push r9
 		;push r8
@@ -26,18 +26,20 @@ _ft_list_sort:
 		jz _end
 
 .cmp:
-		push rdi
 		push rsi
+		push rdi
 		push rcx
+		;sub rsp, 8
 		mov rcx, rsi		; mov func cmp' ptr to rbx
 		mov rsi, [rdi + 8]	; rsi = node->next / get next node
 		mov rsi, [rsi]		; rsi = node1->data
 		mov rdi, [rdi]		; rdi = node->data
 		xor rax, rax
 		call rcx			; call (*cmp)
+		;add rsp, 8
 		pop rcx
-		pop rsi
 		pop rdi
+		pop rsi
 		cmp rax, 0			; check cmp func return
 		jg .swap_data		; jmp if greater (signed)
 
@@ -64,6 +66,7 @@ _end:
 		;pop rbx
 		;pop r8
 		;pop r9
-		;mov rsp, rbp
-		;pop rbp
+		;add rsp, 8
+		mov rsp, rbp
+		pop rbp
 		ret

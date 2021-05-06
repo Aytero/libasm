@@ -6,8 +6,9 @@ section	.text
 
 _ft_list_push_front:
 
-	;	push rbp
-	;	mov rbp, rsp
+		push rbp
+		mov rbp, rsp
+		sub rsp, 8
 		push rbx
 		test rdi, rdi		; check **begin_list
 		jz _end
@@ -41,6 +42,6 @@ _ft_list_push_front:
 
 _end:
 		pop rbx
-	;	mov rsp, rbp
-	;	pop rbp
+		mov rsp, rbp
+		pop rbp
 		ret
