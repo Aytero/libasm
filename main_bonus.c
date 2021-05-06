@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <sys/syscall.h>
 #include <sys/errno.h>
+//#include <signal.h>
 
 void	print_list(t_list *head)
 {
@@ -20,6 +21,20 @@ void	print_list(t_list *head)
 	printf("\n");
 }
 
+void	print_list_str(t_list *head)
+{
+	t_list	*tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		printf("%s  ", (char*)tmp->data);
+		tmp = tmp->next;
+	}
+	printf("\n");
+}
+
+
 void	list_clean(t_list **head)
 {
 	t_list	*tmp;
@@ -33,6 +48,18 @@ void	list_clean(t_list **head)
 			(*head) = tmp;
 		}
 	}
+}
+
+void	free_func(void *s)
+{
+	*(int*)s = 0;
+	//*((int*)s) = 0;
+	//*(char*)s = '-';
+}
+
+int		cmp_equal(void *a, void *b)
+{
+	return (*(char*)a - *(char*)b);
 }
 
 int		cmp_lower(void *a, void *b)
@@ -100,6 +127,37 @@ int		main()
 	printf("node bf clean  %p\n", node);
 	list_clean(&node);
 	printf("node aft clean %p\n", node);
+
+	node = NULL;
+	int		i;
+/*	char	str[50] = {0};
+	char	ref = 0;
+
+	i = -1;
+	while (++i < 10)
+		str[i] = i + '0';
+	i = 10;
+	while (--i >= 0)
+		ft_list_push_front(&node, str + i);
+	ref = '9';
+	print_list_str(node);
+//	ft_list_remove_if(&node, &ref, &cmp_equal, &free_func);
+*/
+
+	int		ref = 4;
+	i = 10;
+	while (--i > 0)
+		ft_list_push_front(&node, (void*)i);
+	print_list(node);
+//	if (cmp_lower(ref, node->data))
+//		free_func(&node->data);
+//	if (cmp_lower(ref, node->next->next->data))
+//		free_func(&node->next->next->data);
+//	if (cmp_lower(ref, node->next->next->next->next->data))
+//		free_func(&node->next->next->next->next->data);
+//	print_list(node);
+	ft_list_remove_if(&node, &ref, &cmp_lower, &free_func);
+	print_list(node);
 
 //	while (1)
 //		;

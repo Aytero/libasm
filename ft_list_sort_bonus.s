@@ -16,7 +16,7 @@ _ft_list_sort:
 		test rsi, rdi		; check if (*cmp) == NULL
 		jz _end
 
-		mov rcx, [rdi]		; save begin_list in ptr
+		mov r10, [rdi]		; save begin_list in ptr
 		mov rdi, [rdi]		; rdi = begin_list (without ptr?)
 
 
@@ -26,9 +26,9 @@ _ft_list_sort:
 		jz _end
 
 .cmp:
+		;push rcx
 		push rsi
 		push rdi
-		push rcx
 		;sub rsp, 8
 		mov rcx, rsi		; mov func cmp' ptr to rbx
 		mov rsi, [rdi + 8]	; rsi = node->next / get next node
@@ -36,10 +36,10 @@ _ft_list_sort:
 		mov rdi, [rdi]		; rdi = node->data
 		xor rax, rax
 		call rcx			; call (*cmp)
-		;add rsp, 8
-		pop rcx
+		;add rsp, 16
 		pop rdi
 		pop rsi
+		;pop rcx
 		cmp rax, 0			; check cmp func return
 		jg .swap_data		; jmp if greater (signed)
 
@@ -47,7 +47,7 @@ _ft_list_sort:
 		mov rdi, [rdi + 8]	; rdi ptr to next node's start
 		;test rdi, rdi		; check next node
 		;je _end
-		jmp .get_next
+		jmp short .get_next
 
 .swap_data:
 		; reg = lst->next->data
@@ -59,8 +59,8 @@ _ft_list_sort:
 		mov r9, [rdi]		; r10 = ptr node->data
 		mov [rdi], r8		; [rdi] = [r8]
 		mov [rbx], r9		; [r8] = [rdi]
-		mov rdi, rcx		; restore rdi 
-		jmp .get_next
+		mov rdi, r10		; restore rdi 
+		jmp short .get_next
 
 _end:
 		;pop rbx
