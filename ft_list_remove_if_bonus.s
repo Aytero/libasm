@@ -1,4 +1,4 @@
-	extern	_free	; allowed in subj
+	extern	_free
 	global	_ft_list_remove_if
 
 	section	.text
@@ -9,13 +9,13 @@ _ft_list_remove_if:
 		mov rbp, rsp
 
 		test rdi, rdi		; begin list
-		jz _end
+		jz near _end
 		test rsi, rsi		; data ref
-		jz _end
+		jz near _end
 		test rdx, rdx		; cmp
-		jz _end
+		jz near _end
 		test rcx, rcx		; free_fct
-		jz _end
+		jz near _end
 
 		xor r9, r9
 		mov r8, [rdi]		; store head // tmp
@@ -48,19 +48,20 @@ _ft_list_remove_if:
 .remove:
 		cmp r9, 0
 		jne .relink
-		mov rdi, [r8 + 8]
+		mov rdi, [r8 + 8]	; new begin_list
 		jmp .clean
 
 .relink:
 		; prev->next = tmp->text
-		;mov [r9 + 8], [r8 + 8]
-		mov r10, [r8 + 8]
+		;mov [r9 + 8], [rdi + 8]
+		mov r10, [rdi + 8]
 		mov [r9 + 8], r10
 
 .clean:
-		push r8
+		push rdi
+		mov rdi, [rdi]
 		call rcx
-		pop r8
+		pop rdi
 		call _free
 		; test rax
 		jmp .get_next

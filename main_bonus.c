@@ -21,6 +21,7 @@ void	print_list(t_list *head)
 	printf("\n");
 }
 
+/*
 void	print_list_str(t_list *head)
 {
 	t_list	*tmp;
@@ -33,7 +34,7 @@ void	print_list_str(t_list *head)
 	}
 	printf("\n");
 }
-
+*/
 
 void	list_clean(t_list **head)
 {
@@ -157,7 +158,7 @@ int		main()
 //		free_func(&node->next->next->next->next->data);
 //	print_list(node);
 	ft_list_remove_if(&node, &ref, &cmp_lower, &free_func);
-	print_list(node);
+//	print_list(node);
 
 //	while (1)
 //		;

@@ -13,7 +13,7 @@ _ft_list_sort:
 	
 		test rdi, rdi		; check if **begin_list == NULL
 		jz _end
-		test rsi, rdi		; check if (*cmp) == NULL
+		test rsi, rsi		; check if (*cmp) == NULL
 		jz _end
 
 		mov r10, [rdi]		; save begin_list in ptr
