@@ -10,17 +10,17 @@ _ft_strcmp:
 		xor rbx, rbx
 
 .loop:
-		mov al, [rdi]
-		mov bl, [rsi]
-		test bl, bl		; check for \0
+		mov al, byte [rdi]
+		mov bl, byte [rsi]
+		test bl, bl			; check for \0
 		jz _end
-		test al, al		; check for \0
+		test al, al			; check for \0
 		jz _end
-		cmp al, bl		; compare bytes (symbs)
+		cmp al, bl			; compare bytes (symbs)
 		jne _end
 		inc rsi
 		inc rdi
-		jmp .loop	; add short
+		jmp short .loop
 
 _end:
 		sub rax, rbx

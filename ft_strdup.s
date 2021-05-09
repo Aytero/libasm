@@ -18,7 +18,8 @@ _ft_strdup:
 			pop rsi				; rsi = rdi 
 			call _ft_strcpy
 			jmp short _exit
-.error:		push rax
+.error:	
+			push rax
 			call ___error
 			pop qword [rax]			; put errno pointer in rax
 			mov rax, -1				; 

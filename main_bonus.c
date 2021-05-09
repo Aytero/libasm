@@ -21,7 +21,6 @@ void	print_list(t_list *head)
 	printf("\n");
 }
 
-/*
 void	print_list_str(t_list *head)
 {
 	t_list	*tmp;
@@ -29,12 +28,11 @@ void	print_list_str(t_list *head)
 	tmp = head;
 	while (tmp)
 	{
-		printf("%s  ", (char*)tmp->data);
+		printf("%s  ", tmp->data);
 		tmp = tmp->next;
 	}
 	printf("\n");
 }
-*/
 
 void	list_clean(t_list **head)
 {
@@ -53,9 +51,9 @@ void	list_clean(t_list **head)
 
 void	free_func(void *s)
 {
-	*(int*)s = 0;
+	//*(int*)s = 2;
 	//*((int*)s) = 0;
-	//*(char*)s = '-';
+	*(char*)s = '-';
 }
 
 int		cmp_equal(void *a, void *b)
@@ -77,6 +75,8 @@ int		main()
 
 	printf("size %d\n", ft_list_size(node));
 
+	ft_list_push_front(&node, (void*)0);
+//	printf("data zero %d\n", &node->data);
 	ft_list_push_front(&node, (void*)1);
 	printf("size %d\n", ft_list_size(node));
 
@@ -103,6 +103,7 @@ int		main()
 	printf("size %d\n", ft_list_size(node));
 	ft_list_push_front(&node, (void*)5);
 	ft_list_push_front(&node, (void*)-800);
+	ft_list_push_front(&node, (void*)0);
 	ft_list_push_front(&node, (void*)302);
 	ft_list_push_front(&node, (void*)5);
 	ft_list_push_front(&node, (void*)0);
@@ -124,6 +125,7 @@ int		main()
 	ft_list_sort(&node, &cmp_lower);
 	print_list(node);
 	printf("\n");
+//	printf("data zero %d\n", node->next->next->data);
 
 	printf("node bf clean  %p\n", node);
 	list_clean(&node);
@@ -131,7 +133,7 @@ int		main()
 
 	node = NULL;
 	int		i;
-/*	char	str[50] = {0};
+	char	str[50] = {0};
 	char	ref = 0;
 
 	i = -1;
@@ -140,16 +142,19 @@ int		main()
 	i = 10;
 	while (--i >= 0)
 		ft_list_push_front(&node, str + i);
-	ref = '9';
+	ref = '8';
 	print_list_str(node);
-//	ft_list_remove_if(&node, &ref, &cmp_equal, &free_func);
-*/
+	ft_list_remove_if(&node, &ref, &cmp_equal, &free_func);
+	print_list_str(node);
 
-	int		ref = 4;
-	i = 10;
-	while (--i > 0)
-		ft_list_push_front(&node, (void*)i);
-	print_list(node);
+	printf("HUH\n");
+
+
+//	int		ref = 4;
+//	i = 10;
+//	while (--i > 0)
+//		ft_list_push_front(&node, (void*)i);
+//	print_list(node);
 //	if (cmp_lower(ref, node->data))
 //		free_func(&node->data);
 //	if (cmp_lower(ref, node->next->next->data))
@@ -157,7 +162,7 @@ int		main()
 //	if (cmp_lower(ref, node->next->next->next->next->data))
 //		free_func(&node->next->next->next->next->data);
 //	print_list(node);
-	ft_list_remove_if(&node, &ref, &cmp_lower, &free_func);
+//	ft_list_remove_if(&node, &ref, &cmp_lower, &free_func);
 //	print_list(node);
 
 //	while (1)
