@@ -14,8 +14,8 @@ _ft_list_push_front:
 		push rbx
 		test rdi, rdi				; check **begin_list
 		jz _end
-		test rsi, rsi				; check data
-		jz _end
+		;test rsi, rsi				; check data
+		;jz _end
 
 .malloc:
 		push rsi
