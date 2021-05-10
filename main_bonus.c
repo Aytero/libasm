@@ -142,7 +142,7 @@ int		main()
 	i = 10;
 	while (--i >= 0)
 		ft_list_push_front(&node, str + i);
-	ref = '8';
+	ref = '9';
 	print_list_str(node);
 	ft_list_remove_if(&node, &ref, &cmp_equal, &free_func);
 	print_list_str(node);
@@ -168,6 +168,15 @@ int		main()
 //	while (1)
 //		;
 
+	char	*atoi_str = " +-+--815al";
+	char	*base;// = "10";
+
+	base = malloc(sizeof(char) * 3);
+	base[0] = 'a';
+	base[1] = 'b';
+	base[2] = '\0';
+
+	printf("atoi %d\n", ft_atoi_base(atoi_str, base));
 
 	return (0);
 }

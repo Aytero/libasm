@@ -14,8 +14,6 @@ _ft_list_push_front:
 		push rbx
 		test rdi, rdi				; check **begin_list
 		jz _end
-		;test rsi, rsi				; check data
-		;jz _end
 
 .malloc:
 		push rsi
@@ -29,7 +27,6 @@ _ft_list_push_front:
 		jz .error
 
 .swap_data:
-		;xor rbx, rbx
 		mov rbx, qword [rdi]		; make rbx a ptr to begin_list
 		mov qword [rax], rsi		; put data in new elem
 		mov qword [rax + 8], rbx	; elem->next = begin_list
@@ -44,6 +41,7 @@ _ft_list_push_front:
 
 _end:
 		pop rbx
+		add rsp, 8
 		mov rsp, rbp
 		pop rbp
 		ret

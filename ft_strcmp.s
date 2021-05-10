@@ -3,8 +3,8 @@ global _ft_strcmp
 section .text
 
 _ft_strcmp:
-		push rsi
-		push rdi
+		push rbp
+		mov rbp, rsp
 		push rbx
 		xor rax, rax
 		xor rbx, rbx
@@ -25,6 +25,6 @@ _ft_strcmp:
 _end:
 		sub rax, rbx
 		pop rbx
-		pop rdi
-		pop rsi
+		mov rsp, rbp
+		pop rbp
 		ret

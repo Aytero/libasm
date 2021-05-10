@@ -2,16 +2,19 @@ global _ft_strcpy
 
 section .text
 
-_ft_strcpy:	xor rax, rax
+_ft_strcpy:	
+			push rbp
+			mov rbp, rsp
 			push rdi
-			push rsi
+			xor rax, rax
 			cld
 .loop:		lodsb
 			stosb
 			cmp al, 0
 			jnz .loop
 			mov byte [rdi], 0
-			pop rsi
 			pop rdi
 			mov rax, rdi
+			mov rsp, rbp
+			pop rbp
 _end:		ret

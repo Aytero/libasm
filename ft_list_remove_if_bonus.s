@@ -2,7 +2,7 @@
 		global	_ft_list_remove_if
 
 ;void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
-;				void (*free_fct)(void *));
+;							void (*free_fct)(void *));
 
 		section	.text
 
@@ -58,6 +58,7 @@ _ft_list_remove_if:
 .cmp_null:
 		xor rdi, rsi
 		mov rax, rdi
+		;add rsp, 8
 .cmp_cont:	
 		pop rcx
 		pop rdx
@@ -78,6 +79,8 @@ _ft_list_remove_if:
 .call_free_fct:
 		push rsi
 		push rdx
+		push rbx	;
+		push r9
 		push rcx
 		push rdi
 		;mov rdi, [rdi]
@@ -93,6 +96,8 @@ _ft_list_remove_if:
 		call _free
 		pop rdi
 		pop rcx
+		pop r9
+		pop rbx		;
 		pop rdx
 		pop rsi
 
@@ -105,7 +110,7 @@ _ft_list_remove_if:
 		;jmp .get_next
 
 .relink:
-		; prev->next = tmp->text
+		; prev->next = tmp->next
 		;mov [r9 + 8], [rdi + 8]
 		;mov r10, [rdi + 8]
 		;mov [r9 + 8], r10
