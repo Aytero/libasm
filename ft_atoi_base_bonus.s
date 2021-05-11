@@ -19,40 +19,31 @@ _ft_atoi_base:
 
 .check_base_len:
 		; check base len and symbs
-		;xor rax, rax
-		push rsi
-		push rdi
-		mov r12, [rsi]
-		mov rdi, r12
-		;mov rdi, [rsi]
-		call _ft_strlen
-		mov rbx, rax
-		cmp rbx, 2
-		jl _error
-		pop rdi
-		pop rsi
 
-		mov rcx, -1
+		mov rbx, -1
 .check_base_sym:
 		inc rcx
-		cmp byte [rsi  + rcx], 0
+		cmp byte [rsi  + rbx], 0
 		je _atoi
-		cmp byte [rsi + rcx], 32	; sp
+		cmp byte [rsi + rbx], 32	; sp
 		je _error
-		cmp byte [rsi + rcx], 9		; ht
+		cmp byte [rsi + rbx], 9		; ht
 		je _error
-		cmp byte [rsi + rcx], 10	; nl
+		cmp byte [rsi + rbx], 10	; nl
 		je _error
-		cmp byte [rsi + rcx], 11	; vt
+		cmp byte [rsi + rbx], 11	; vt
 		je _error
-		cmp byte [rsi + rcx], 12	; np
+		cmp byte [rsi + rbx], 12	; np
 		je _error
-		cmp byte [rsi + rcx], 13	; cr
+		cmp byte [rsi + rbx], 13	; cr
 		je _error
-		cmp byte [rsi + rcx], 43	; '+'
+		cmp byte [rsi + rbx], 43	; '+'
 		je _error
-		cmp byte [rsi + rcx], 45	; '-'
+		cmp byte [rsi + rbx], 45	; '-'
 		je _error
+
+		cmp rbx, 1					; check base len
+		jl _error
 
 _atoi:
 		xor rax, rax
@@ -89,33 +80,51 @@ _atoi:
 		cmp byte [rdi + rcx], 45	; '-'
 		je .inc_counter
 
-	;	jmp .loop
+		jmp .atoi_loop
 
-.loop:
-		cmp byte [rdi + rcx], 48
-		jge .nxt
-		jmp .deal_sign
-.nxt:	cmp byte [rdi + rcx], 57
-		jle .calc
-		jmp .deal_sign
+.atoi_inc
+		inc rcx
+
+.atoi_loop:
+		;cmp byte [rdi + rcx], 48
+		;jge .nxt
+		;jmp .set_sign
+;.nxt:	;cmp byte [rdi + rcx], 57
+		;jle .calc
+		;jmp .set_sign
+
+
+		cmp byte [rdi + rcx], 0
+		je .set_sign
+		
+		mov r9, -1
+.base_index:
+		inc r9
+		mov dl, byte [rsi + r9]
+		cmp dl, 0
+		jz _end
+		cmp byte [rdi + rcx], dl
+		jne .atoi_inc
+		;jmp .atoi_loop
 
 .calc:
+		; rax = rax * base_len + index
 		; rax = rax * 10 + byte [rdi + rcx] - 48
-		mov r9, rax
-		mov rax, 10
-		mov rdx, r9
+		mov r8, rax
+		mov rax, rbx
+		mov rdx, r8
 		mul rdx
 		;mov rax, rdx
 		;xor rbx, rbx
-		mov dl, byte [rdi + rcx]
-		add rax, rdx
-		sub rax, 48
-		inc rcx
-		jmp .loop
+		;mov dl, byte [rdi + rcx]
+		;add rax, rdx
+		add rax, r9
+		;sub rax, 48
+		jmp .atoi_inc
 		;jmp .deal_sign
 
 
- .deal_sign:
+ .set_sign:
 		test r12, 1
 		jz _end		; if even number of '-'
 		neg rax		; if odd

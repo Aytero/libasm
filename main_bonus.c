@@ -168,7 +168,7 @@ int		main()
 //	while (1)
 //		;
 
-	char	*atoi_str = " +-+--815al";
+	char	*atoi_str = " +-+--abbal";
 	char	*base;// = "10";
 
 	base = malloc(sizeof(char) * 3);
