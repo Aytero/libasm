@@ -22,14 +22,16 @@ int		main(int argc, char **argv)
 	char	*str7;
 	int		fd;
 	int		reader = 0;
-	char	buf[32];
-	char	buf1[32];
+	char	buf[32] = {0};
+	char	buf1[32] = {0};
 
 	str6 = malloc(4);
 	str6 = "rir";
 	str7 = malloc(7);
 	str7 = "riroko";
 
+	printf("strlen    |%lu|\n", strlen(""));
+	printf("ft_strlen |%zu|\n", ft_strlen(""));
 	printf("strlen    |%lu|\n", strlen(str));
 	printf("ft_strlen |%zu|\n", ft_strlen(str));
 	printf("strlen    |%lu|\n", strlen(str5));
@@ -38,22 +40,52 @@ int		main(int argc, char **argv)
 
 	printf("strcpy    |%s|\n", strcpy(str2, ""));
 	printf("ft_strcpy |%s|\n", ft_strcpy(str2, ""));
-	printf("strcpy    |%s|\n", strcpy(str2, "123"));
-	printf("ft_strcpy |%s|\n", ft_strcpy(str2, "123"));
+	printf("strcpy    |%s|\n", strcpy(str2, "abc123"));
+	printf("ft_strcpy |%s|\n", ft_strcpy(str2, "abc123"));
 	printf("\n");
 
+	printf("strcmp    |%d|\n", strcmp("", str7));
+	printf("ft_strcmp |%d|\n", ft_strcmp("", str7));
+	printf("strcmp    |%d|\n", strcmp(str6, ""));
+	printf("ft_strcmp |%d|\n", ft_strcmp(str6, ""));
 	printf("strcmp    |%d|\n", strcmp(str6, str7));
 	printf("ft_strcmp |%d|\n", ft_strcmp(str6, str7));
+	printf("strcmp    |%d|\n", strcmp("Hello", "Hello"));
+	printf("ft_strcmp |%d|\n", ft_strcmp("Hello", "Hello"));
+	printf("strcmp    |%d|   > 0\n", strcmp("hello", "Hello"));
+	printf("ft_strcmp |%d|  > 0\n", ft_strcmp("hello", "Hello"));
+	printf("strcmp    |%d|  < 0\n", strcmp("Hello", "hello"));
+	printf("ft_strcmp |%d| < 0\n", ft_strcmp("Hello", "hello"));
+	printf("strcmp    |%d|  < 0\n", strcmp("Hello", "hello hi"));
+	printf("ft_strcmp |%d| < 0\n", ft_strcmp("Hello", "hello hi"));
+	printf("strcmp    |%d|   > 0\n", strcmp("hello hello", "Hello"));
+	printf("ft_strcmp |%d|  > 0\n", ft_strcmp("hello hello", "Hello"));
 	printf("\n");
 
+	printf("strdup     |%s|\n", strdup(str6));
+	str4 = ft_strdup(str6);
+	printf("ft_strdup  |%s|\n", str4);
+//	printf("strdup     |%s|\n", strdup(""));
+//	printf("ft_strdup  |%s|\n", ft_strdup(str6));
+	printf("strdup     |%s|\n", strdup(""));
+	printf("ft_strdup  |%s|\n", ft_strdup(""));
+	free(str4);
+	printf("\n");
+
+	printf("WRITE\n");
+	errno = 0;
 	printf("write     |%zd|\n", write(1, NULL, 6));
-	printf("%s\n", strerror(errno));
+	printf("null str errno: %s\n", strerror(errno));
+	errno = 0;
 	printf("ft_write  |%zd|\n", ft_write(1, NULL, 6));
-	printf("%s\n", strerror(errno));
+	printf("null str errno: %s\n", strerror(errno));
+	errno = 0;
 	printf("write     |%zd|\n", write(-1, "Hello\n", 6));
-	printf("%s\n", strerror(errno));
+	printf("-1 fd errno: %s\n", strerror(errno));
+	errno = 0;
 	printf("ft_write  |%zd|\n", ft_write(-1, "Hello\n", 6));
-	printf("%s\n", strerror(errno));
+	printf("-1 fd errno: %s\n", strerror(errno));
+	errno = 0;
 	printf("write     |%zd|\n", write(1, "Hello\n", 6));
 	printf("ft_write  |%zd|\n", ft_write(1, "Hello\n", 6));
 
@@ -61,32 +93,23 @@ int		main(int argc, char **argv)
 	printf("READ\n");
 	if (!(reader = ft_read(0, buf1, 16)))
 		return (-1);
-	printf("bytes read %d\n", reader);
+	printf("bytes read from 0 fd: %d\n", reader);
 	printf("buf |%s|\n", buf1);
 	if (!(fd = open(argv[1], O_RDONLY)))
 		return (-1);
 	if (!(reader = ft_read(fd, buf, 16)))
 		return (-1);
-	printf("bytes read %d\n", reader);
+	printf("bytes read from file: %d\n", reader);
 	printf("buf |%s|\n", buf);
+	errno = 0;
 	if (!(reader = ft_read(-1, buf, 16)))
 		return (-1);
-	printf("%s\n", strerror(errno));
+	printf("-1 fd errno: %s\n", strerror(errno));
+	errno = 0;
+	if (!(reader = ft_read(fd, "", 16)))
+		return (-1);
+	printf("null buf: %s\n", strerror(errno));
 	close(fd);
-	printf("\n");
-
-	printf("strdup     |%s|\n", strdup(str6));
-	str4 = ft_strdup(str6);
-	printf("ft_strdup  |%s|\n", str4);
-	printf("ft_strdup  |%s|\n", ft_strdup(str6));
-	printf("strdup     |%s|\n", strdup(""));
-	printf("ft_strdup  |%s|\n", ft_strdup(""));
-
-
-//	t_list	*elem;
-//	int		d = 8;
-//	ft_list_push_front(&elem, &d);
-//	printf("%p\n", elem->data);
-
+	
 	return (0);
 }

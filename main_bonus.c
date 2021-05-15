@@ -147,7 +147,8 @@ int		main()
 	ft_list_remove_if(&node, &ref, &cmp_equal, &free_func);
 	print_list_str(node);
 
-	printf("HUH\n");
+//	printf("HUH\n");
+	printf("\n");
 
 
 //	int		ref = 4;
@@ -168,15 +169,52 @@ int		main()
 //	while (1)
 //		;
 
-	char	*atoi_str = " +-+--abbal";
-	char	*base;// = "10";
+	printf("ft_atoi_base\n");
+	printf("\n");
+	printf("decimal\n");
+	printf("%10d == 0\n", ft_atoi_base("0", "0123456789"));
+	printf("%10d == 1\n", ft_atoi_base("+1", "0123456789"));
+	printf("%10d == -1\n", ft_atoi_base("-1", "0123456789"));
+	printf("%10d == 9\n", ft_atoi_base("9", "0123456789"));
+	printf("%10d == 15\n", ft_atoi_base("15lkkgk", "0123456789"));
+	printf("%10d == -258\n", ft_atoi_base("---258", "0123456789"));
+	printf("%10d == -8\n", ft_atoi_base("++-+8", "0123456789"));
+	printf("%10d == 893047891\n", ft_atoi_base("893047891", "0123456789"));
+//	printf("%10d == 9893047891\n", ft_atoi_base("9893047891", "0123456789"));
+	printf("\n");
 
-	base = malloc(sizeof(char) * 3);
-	base[0] = 'a';
-	base[1] = 'b';
-	base[2] = '\0';
 
-	printf("atoi %d\n", ft_atoi_base(atoi_str, base));
+	printf("binary\n");
+//	printf("atoi %d == 1\n", ft_atoi_base("+-+-1l", "012345"));
+	printf("%10d == 0\n", ft_atoi_base("0", "01"));
+	printf("%10d == 1\n", ft_atoi_base("1", "01"));
+	printf("%10d == -1\n", ft_atoi_base("-1", "01"));
+	printf("%10d == 2\n", ft_atoi_base("10", "01"));
+	printf("%10d == 5\n", ft_atoi_base("101", "01"));
+	printf("%10d == 10\n", ft_atoi_base("1010", "01"));
+	printf("%10d == -41\n", ft_atoi_base("---101001", "01"));
+	printf("\n");
+
+	printf("hex\n");
+	printf("%10d == 0\n", ft_atoi_base("0", "0123456789ABCDEF"));
+	printf("%10d == 56\n", ft_atoi_base("38", "0123456789ABCDEF"));
+	printf("%10d == 15\n", ft_atoi_base("F", "0123456789ABCDEF"));
+	printf("%10d == 22\n", ft_atoi_base("16", "0123456789ABCDEF"));
+	printf("%10d == 255\n", ft_atoi_base("FFk", "0123456789ABCDEF"));
+	printf("%10d == -1\n", ft_atoi_base("-1kFFk", "0123456789ABCDEF"));
+	printf("\n");
+
+	printf("errors\n");
+	printf("%10d == 0 ('L5')\n", ft_atoi_base("L5", "0123456789"));
+	printf("%10d == 0 (base '')\n", ft_atoi_base("11", ""));
+	printf("%10d == 0 (base '01 ')\n", ft_atoi_base("11", "01 "));
+	printf("%10d == 0 (base ' 1')\n", ft_atoi_base("11", " 1"));
+	printf("%10d == 0 (base '-01')\n", ft_atoi_base("11", "-01"));
+	printf("%10d == 0 (base '01+')\n", ft_atoi_base("11", "01+"));
+	printf("%10d == 0 (base '\\n01')\n", ft_atoi_base("11", "\n01"));
+	printf("%10d == 0 (base '011')\n", ft_atoi_base("11", "011"));
+	printf("%10d == 0 (base '01234567890')\n", ft_atoi_base("11", "01234567890"));
+	printf("%10d == 0 (str '8', base '01')\n", ft_atoi_base("8", "01"));
 
 	return (0);
 }
