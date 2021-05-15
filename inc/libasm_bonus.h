@@ -6,7 +6,7 @@
 /*   By: lpeggy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:15:57 by lpeggy            #+#    #+#             */
-/*   Updated: 2021/05/03 23:43:06 by lpeggy           ###   ########.fr       */
+/*   Updated: 2021/05/15 19:21:11 by lpeggy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 typedef struct s_list
 {
-
 	void			*data;
 	struct s_list	*next;
 }					t_list;
@@ -26,6 +25,6 @@ void	ft_list_push_front(t_list **begin_list, void *data);
 int		ft_list_size(t_list *begin_list);
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
-				void (*free_fct)(void *));
+			void (*free_fct)(void *));
 
 #endif
