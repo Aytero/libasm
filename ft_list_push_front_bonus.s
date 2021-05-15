@@ -1,10 +1,10 @@
-		extern	_malloc
-		extern	___error
-		global	_ft_list_push_front
+;void	ft_list_push_front(t_list **begin_list, void *data);
 
-; void	ft_list_push_front(t_list **begin_list, void *data);
+extern	_malloc
+extern	___error
 
-		section	.text
+global	_ft_list_push_front
+section	.text
 
 _ft_list_push_front:
 
@@ -12,14 +12,14 @@ _ft_list_push_front:
 		mov rbp, rsp
 		sub rsp, 8
 		push rbx
-		test rdi, rdi				; check **begin_list
+		test rdi, rdi				; check if **begin_list == null
 		jz _end
 
 .malloc:
 		push rsi
 		push rdi
 		xor rax, rax
-		mov rdi, 16					; size to malloc: two vars 8 + 8
+		mov rdi, 16					; size to allocate: two vars 8 + 8 bytes
 		call _malloc
 		pop rdi
 		pop rsi
@@ -37,7 +37,7 @@ _ft_list_push_front:
 		push rax
 		call ___error
 		pop qword [rax]				; put errno pointer in rax
-		mov rax, -1					; 
+		mov rax, -1
 
 _end:
 		pop rbx

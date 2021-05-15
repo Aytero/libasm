@@ -1,18 +1,19 @@
+;char	*ft_strdup(char *s1);
+
 extern	_ft_strlen
 extern	_ft_strcpy
 extern	___error
 extern	_malloc
-		global	_ft_strdup
 
-		section	.text
+global	_ft_strdup
+section	.text
 
 _ft_strdup:	
-		;push rbp
-		;mov rbp, rsp
-		;push rdi			; more calling prep?
+		push rbp
+		mov rbp, rsp
+		sub rsp, 8
 		call _ft_strlen
-		;pop rdi
-		push rdi			; more calling prep?
+		push rdi			; more calling prep
 		inc rax				; len + 1 for \0
 		mov rdi, rax		; size to malloc// use lea
 		call _malloc
@@ -25,9 +26,9 @@ _ft_strdup:
 .error:	
 		push rax
 		call ___error
-		pop qword [rax]			; put errno pointer in rax
-		mov rax, -1				; 
+		pop qword [rax]		; put errno pointer in rax
+		mov rax, -1			; 
 _exit:
-		;mov rsp, rbp
-		;pop rbp
+		mov rsp, rbp
+		pop rbp
 		ret

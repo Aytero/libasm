@@ -30,6 +30,7 @@ int		main(int argc, char **argv)
 	str7 = malloc(7);
 	str7 = "riroko";
 
+	printf("\n\033[0;32mft_strlen\033[0m\n");
 	printf("strlen    |%lu|\n", strlen(""));
 	printf("ft_strlen |%zu|\n", ft_strlen(""));
 	printf("strlen    |%lu|\n", strlen(str));
@@ -38,12 +39,14 @@ int		main(int argc, char **argv)
 	printf("ft_strlen |%zu|\n", ft_strlen(str5));
 	printf("\n");
 
+	printf("\n\033[0;32mft_strcpy\033[0m\n");
 	printf("strcpy    |%s|\n", strcpy(str2, ""));
 	printf("ft_strcpy |%s|\n", ft_strcpy(str2, ""));
 	printf("strcpy    |%s|\n", strcpy(str2, "abc123"));
 	printf("ft_strcpy |%s|\n", ft_strcpy(str2, "abc123"));
 	printf("\n");
 
+	printf("\n\033[0;32mft_strcmp\033[0m\n");
 	printf("strcmp    |%d|\n", strcmp("", str7));
 	printf("ft_strcmp |%d|\n", ft_strcmp("", str7));
 	printf("strcmp    |%d|\n", strcmp(str6, ""));
@@ -62,17 +65,20 @@ int		main(int argc, char **argv)
 	printf("ft_strcmp |%d|  > 0\n", ft_strcmp("hello hello", "Hello"));
 	printf("\n");
 
+	printf("\n\033[0;32mft_strdup\033[0m\n");
 	printf("strdup     |%s|\n", strdup(str6));
 	str4 = ft_strdup(str6);
 	printf("ft_strdup  |%s|\n", str4);
-//	printf("strdup     |%s|\n", strdup(""));
-//	printf("ft_strdup  |%s|\n", ft_strdup(str6));
 	printf("strdup     |%s|\n", strdup(""));
 	printf("ft_strdup  |%s|\n", ft_strdup(""));
 	free(str4);
 	printf("\n");
 
-	printf("WRITE\n");
+	printf("\n\033[0;32mft_write\033[0m\n");
+	printf("write     |%zd|\n", write(1, "Hello\n", 6));
+	printf("ft_write  |%zd|\n", ft_write(1, "Hello\n", 6));
+
+	printf("Errors:\n");
 	errno = 0;
 	printf("write     |%zd|\n", write(1, NULL, 6));
 	printf("null str errno: %s\n", strerror(errno));
@@ -85,22 +91,39 @@ int		main(int argc, char **argv)
 	errno = 0;
 	printf("ft_write  |%zd|\n", ft_write(-1, "Hello\n", 6));
 	printf("-1 fd errno: %s\n", strerror(errno));
-	errno = 0;
-	printf("write     |%zd|\n", write(1, "Hello\n", 6));
-	printf("ft_write  |%zd|\n", ft_write(1, "Hello\n", 6));
-
 	printf("\n");
-	printf("READ\n");
+
+	printf("\n\033[0;32mft_read\033[0m\n");
+	printf("ft_read:\n");
 	if (!(reader = ft_read(0, buf1, 16)))
 		return (-1);
 	printf("bytes read from 0 fd: %d\n", reader);
-	printf("buf |%s|\n", buf1);
+	printf("buf = |%s|\n", buf1);
+
 	if (!(fd = open(argv[1], O_RDONLY)))
 		return (-1);
 	if (!(reader = ft_read(fd, buf, 16)))
 		return (-1);
 	printf("bytes read from file: %d\n", reader);
-	printf("buf |%s|\n", buf);
+	printf("buf = |%s|\n", buf);
+	close(fd);
+
+	printf("\nread:\n");
+	memset(buf1, 0, sizeof(char) * 32);
+	if (!(reader = read(0, buf1, 16)))
+		return (-1);
+	printf("bytes read from 0 fd: %d\n", reader);
+	printf("buf = |%s|\n", buf1);
+	if (!(fd = open(argv[1], O_RDONLY)))
+		return (-1);
+	memset(buf1, 0, sizeof(char) * 32);
+	if (!(reader = read(fd, buf, 16)))
+		return (-1);
+	printf("bytes read from file: %d\n", reader);
+	printf("buf = |%s|\n", buf);
+	printf("\n");
+
+	printf("Errors:\n");
 	errno = 0;
 	if (!(reader = ft_read(-1, buf, 16)))
 		return (-1);

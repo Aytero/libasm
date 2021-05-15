@@ -1,7 +1,9 @@
-	extern	___error
-	global	_ft_write
+;ssize_t	ft_write(int fd, void *str, size_t nbyte);
 
-	section	.text
+extern	___error
+
+global	_ft_write
+section	.text
 
 _ft_write:	mov	rax, 0x02000004		; syscall write
 			syscall

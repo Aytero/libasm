@@ -1,21 +1,20 @@
-	global	_ft_list_size
-
 ;int		ft_list_size(t_list *begin_list);
 
-	section	.text
+global	_ft_list_size
+section	.text
 
 _ft_list_size:
 		push rbp
 		mov rbp, rsp
 		push rdi
-		xor rax, rax
+		xor rax, rax				; size = 0
 
 .loop:
 		test rdi, rdi				; check if node(next) == NULL
 		jz _end						; exit if there is no nodes left
 		mov rdi, qword [rdi + 8]	; go to next node
 		inc rax						; size++
-		jmp .loop
+		jmp short .loop
 
 _end:
 		pop rdi

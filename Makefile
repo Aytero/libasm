@@ -6,7 +6,7 @@
 #    By: lpeggy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 19:44:21 by lpeggy            #+#    #+#              #
-#    Updated: 2021/05/10 15:36:57 by lpeggy           ###   ########.fr        #
+#    Updated: 2021/05/15 18:51:52 by lpeggy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,6 @@ clean:
 	rm -f $(OBJS)
 	rm -f $(OBJS_BONUS)
 #	rm -rf $(OBJS_DIR)
-#	rm -f libasm.h.gch
-#	rm -f libasm_bonus.h.gch
 
 fclean: clean
 	rm -f $(NAME)

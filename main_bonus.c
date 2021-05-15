@@ -6,13 +6,13 @@
 #include <fcntl.h>
 #include <sys/syscall.h>
 #include <sys/errno.h>
-//#include <signal.h>
 
 void	print_list(t_list *head)
 {
 	t_list	*tmp;
 
 	tmp = head;
+	printf("print list: ");
 	while (tmp)
 	{
 		printf("%d  ", (int)tmp->data);
@@ -25,6 +25,7 @@ void	print_list_str(t_list *head)
 {
 	t_list	*tmp;
 
+	printf("print list: ");
 	tmp = head;
 	while (tmp)
 	{
@@ -51,8 +52,6 @@ void	list_clean(t_list **head)
 
 void	free_func(void *s)
 {
-	//*(int*)s = 2;
-	//*((int*)s) = 0;
 	*(char*)s = '-';
 }
 
@@ -73,63 +72,66 @@ int		main()
 	int		a = 15;
 	int		b = 27;
 
-	printf("size %d\n", ft_list_size(node));
+	printf("\n\033[0;32mlst funcs tests\033[0m\n");
+	printf("\n");
+
+	printf("lst size = %d\n", ft_list_size(node));
+
+	printf("sort empty list: no seg\n");
+	ft_list_sort(&node, &cmp_lower);
+	printf("\n");
 
 	ft_list_push_front(&node, (void*)0);
-//	printf("data zero %d\n", &node->data);
+	printf("lst size = %d\n", ft_list_size(node));
+	print_list(node);
+	printf("sort one-node list\n");
+	ft_list_sort(&node, &cmp_lower);
+	print_list(node);
+	printf("\n");
+
 	ft_list_push_front(&node, (void*)1);
-	printf("size %d\n", ft_list_size(node));
+	printf("lst size = %d\n", ft_list_size(node));
+	print_list(node);
+	printf("\n");
 
-	printf("begin lst     %p\n", node);
-	printf("begin lst     %p\n", &node);
-	printf("begin lst     %p\n", &node->data);
-//	printf("begin lst + 8 %p   data %d\n", node + 8, node->data);
-//	printf("begin lst + 8 %p   data %d\n", &(node[0]), node->data);
-
-//	printf("%d\n", *((int *)node->data));
-//	printf("%p\n", node->data);
-//	printf("%p\n", node->next->data);
 	ft_list_push_front(&node, (void*)-2);
-	printf("size %d\n", ft_list_size(node));
-//	printf("%d\n", *((int *)node->data));
-//	printf("%d\n", *((int *)node->next->data));
-//	printf("%p\n", node->data);
-//	printf("%p\n", node->next->data);
-//	printf("%p\n", node->next->next->data);
-//	ft_list_push_front(&node, &b);
+	printf("lst size =  %d\n", ft_list_size(node));
+	print_list(node);
+	printf("\n");
+
 	ft_list_push_front(&node, (void*)3);
-	printf("size %d\n", ft_list_size(node));
+	printf("lst size = %d\n", ft_list_size(node));
+	print_list(node);
+	printf("\n");
+
 	ft_list_push_front(&node, (void*)8);
-	printf("size %d\n", ft_list_size(node));
+	printf("lst size = %d\n", ft_list_size(node));
+	print_list(node);
+	printf("\n");
+
 	ft_list_push_front(&node, (void*)5);
 	ft_list_push_front(&node, (void*)-800);
 	ft_list_push_front(&node, (void*)0);
 	ft_list_push_front(&node, (void*)302);
 	ft_list_push_front(&node, (void*)5);
 	ft_list_push_front(&node, (void*)0);
-	printf("last head  %p\n", node);
-//	printf("%d\n", *((int *)node->data));
-//	printf("%d\n", *((int *)node->next->data));
-//	printf("%d\n", *((int *)node->next->next->data));
-//	printf("%p\n", node->data);
-//	printf("%p\n", node->next->data);
-//	printf("%p\n", node->next->next->data);
-//	printf("%p\n", node->next->next->next->data);
 
-
-	printf("size %d\n", ft_list_size(node));
-
+	printf("lst size = %d\n", ft_list_size(node));
+	print_list(node);
 	printf("\n");
-	printf("sort list\n");
+
+	printf("Before list sort\n");
 	print_list(node);
 	ft_list_sort(&node, &cmp_lower);
+	printf("After list sort\n");
 	print_list(node);
 	printf("\n");
-//	printf("data zero %d\n", node->next->next->data);
 
-	printf("node bf clean  %p\n", node);
+//	printf("node bf clean  %p\n", node);
 	list_clean(&node);
-	printf("node aft clean %p\n", node);
+//	printf("node aft clean %p\n", node);
+
+	printf("List remove if\n");
 
 	node = NULL;
 	int		i;
@@ -143,34 +145,18 @@ int		main()
 	while (--i >= 0)
 		ft_list_push_front(&node, str + i);
 	ref = '9';
+	printf("ref = '9'\n");
+	printf("Before list_remove_if\n");
 	print_list_str(node);
 	ft_list_remove_if(&node, &ref, &cmp_equal, &free_func);
+	printf("After list_remove_if\n");
 	print_list_str(node);
+	list_clean(&node);
 
-//	printf("HUH\n");
+	printf("\n\033[0;32mft_atoi_base\033[0m\n");
 	printf("\n");
+//	printf("atoi %d == 1\n", ft_atoi_base("+-+-1l", "012345"));
 
-
-//	int		ref = 4;
-//	i = 10;
-//	while (--i > 0)
-//		ft_list_push_front(&node, (void*)i);
-//	print_list(node);
-//	if (cmp_lower(ref, node->data))
-//		free_func(&node->data);
-//	if (cmp_lower(ref, node->next->next->data))
-//		free_func(&node->next->next->data);
-//	if (cmp_lower(ref, node->next->next->next->next->data))
-//		free_func(&node->next->next->next->next->data);
-//	print_list(node);
-//	ft_list_remove_if(&node, &ref, &cmp_lower, &free_func);
-//	print_list(node);
-
-//	while (1)
-//		;
-
-	printf("ft_atoi_base\n");
-	printf("\n");
 	printf("decimal\n");
 	printf("%10d == 0\n", ft_atoi_base("0", "0123456789"));
 	printf("%10d == 1\n", ft_atoi_base("+1", "0123456789"));
@@ -183,9 +169,7 @@ int		main()
 //	printf("%10d == 9893047891\n", ft_atoi_base("9893047891", "0123456789"));
 	printf("\n");
 
-
 	printf("binary\n");
-//	printf("atoi %d == 1\n", ft_atoi_base("+-+-1l", "012345"));
 	printf("%10d == 0\n", ft_atoi_base("0", "01"));
 	printf("%10d == 1\n", ft_atoi_base("1", "01"));
 	printf("%10d == -1\n", ft_atoi_base("-1", "01"));
@@ -216,5 +200,7 @@ int		main()
 	printf("%10d == 0 (base '01234567890')\n", ft_atoi_base("11", "01234567890"));
 	printf("%10d == 0 (str '8', base '01')\n", ft_atoi_base("8", "01"));
 
+//	while (1)
+//		;
 	return (0);
 }

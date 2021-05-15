@@ -10,45 +10,45 @@ _base_check:
 		push rbx
 
 		xor rdx, rdx
-		mov rbx, -1					; base_len
+		mov rbx, -1					; base_len = -1 (base str index counter)
 .inc_base_check:
-		inc rbx
-		mov dl, byte [rsi + rbx]
-		cmp dl, 0
+		inc rbx						; base_len++
+		mov dl, byte [rsi + rbx]	; copy byte in dl
+		cmp dl, 0					; check for '\0'
 		je .check_base_len
-		cmp dl, 32					; sp
+		cmp dl, 32					; *str == sp ?
 		je .error
-		cmp dl, 9					; ht
+		cmp dl, 9					; *str == ht ?
 		je .error
-		cmp dl, 10					; nl
+		cmp dl, 10					; *str == nl ?
 		je .error
-		cmp dl, 11					; vt
+		cmp dl, 11					; *str == vt ?
 		je .error
-		cmp dl, 12					; np
+		cmp dl, 12					; *str == np ?
 		je .error
-		cmp dl, 13					; cr
+		cmp dl, 13					; *str == cr ?
 		je .error
-		cmp dl, 43					; '+'
+		cmp dl, 43					; *str == '+' ?
 		je .error
-		cmp dl, 45					; '-'
+		cmp dl, 45					; *str == '-' ?
 		je .error
 
-		mov rcx, rbx
+		mov rcx, rbx				; rcx = rbx
 .check_base_double:					; cmp dl with every other base char
 		inc rcx
-		cmp byte [rsi + rcx], 0
+		cmp byte [rsi + rcx], 0		; check for '\0'
 		je .inc_base_check
-		cmp byte [rsi + rcx], dl
-		je .error
+		cmp byte [rsi + rcx], dl	; cmp dl and rsi[rcx]
+		je .error					; base contains the same char twice
 		jmp .check_base_double
 
 .check_base_len:
 		cmp rbx, 1					; rbx > 1 ?
-		jl .error					; if less
+		jl .error					; if less - error
 		jmp .end
 
 .error:
-		xor rbx, rbx
+		xor rbx, rbx				; base_len = 0
 
 .end:
 		mov rax, rbx
@@ -56,7 +56,7 @@ _base_check:
 		pop r12
 		mov rsp, rbp
 		pop rbp
-		ret
+		ret							; return base_len
 
 
 global	_ft_atoi_base
@@ -69,13 +69,13 @@ _ft_atoi_base:
 		push r12
 		push rbx
 
-		test rdi ,rdi				; rdi == null ?
-		jz _error
+		test rdi ,rdi				; check args:
+		jz _error					; rdi == null ?
 		test rsi, rsi				; rsi == null ?
 		jz _error
 
 		call _base_check
-		test rax, rax				; check func return 
+		test rax, rax				; check func return (base_len)
 		jz _error
 		mov rbx, rax				; rbx = base_len
 
@@ -96,22 +96,22 @@ _ft_atoi_base:
 		je .skip_spaces
 		cmp byte [rdi + rcx], 13	; *str == cr ?
 		je .skip_spaces
-		jmp .inc_sign
+		jmp short .inc_sign
 
 .inc_str_counter:
 		inc rcx
 .inc_sign:
-		cmp byte [rdi + rcx], 45	; '-'
+		cmp byte [rdi + rcx], 45	; *str == '-' ?
 		jne .skip_sign
 		inc r12						; inc '-' counter
 .skip_sign:
-		cmp byte [rdi + rcx], 43	; '+'
+		cmp byte [rdi + rcx], 43	; *str == '+' ?
 		je .inc_str_counter
-		cmp byte [rdi + rcx], 45	; '-'
+		cmp byte [rdi + rcx], 45	; *str == '-' ?
 		je .inc_str_counter
-		jmp .atoi_loop
+		jmp short .atoi_loop
 
-.atoi_inc
+.atoi_inc:
 		inc rcx
 .atoi_loop:
 		cmp byte [rdi + rcx], 0
@@ -121,23 +121,23 @@ _ft_atoi_base:
 		xor rdx, rdx
 .search_base_index:
 		inc r9
-		mov dl, byte [rsi + r9]
-		cmp dl, 0
+		mov dl, byte [rsi + r9]		; copy base str byte in dl
+		cmp dl, 0					; check for '\0'
 		je .set_sign
-		cmp byte [rdi + rcx], dl
+		cmp byte [rdi + rcx], dl	; cmp str symbol with base symb
 		jne .search_base_index
 
 .calc:
 		; rax = rax * base_len + index in base
 		mul rbx						; rax = rax * rbx
 		add rax, r9					; rax = rax + r9
-		jmp .atoi_inc
+		jmp short .atoi_inc
 
  .set_sign:
-		test r12, 1
-		jz _end						; if even number of '-'
+		test r12, 1					; check if amount of '-' is even or odd
+		jz _end						; if even
 		neg rax						; if odd rax = -rax
-		jmp _end
+		jmp short _end
 
 _error:
 		xor rax, rax				; set rax 0

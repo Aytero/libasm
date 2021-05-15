@@ -1,7 +1,9 @@
-	extern	___error
-	global	_ft_read
+;ssize_t	ft_read(int fd, void *buf, size_t nbyte);
 
-	section .text
+extern	___error
+
+global	_ft_read
+section .text
 
 _ft_read:	mov rax, 0x02000003		; syscall read
 			syscall
@@ -10,5 +12,5 @@ _ft_read:	mov rax, 0x02000003		; syscall read
 .error:		push rax
 			call ___error
 			pop qword [rax]			; put errno pointer in rax
-			mov rax, -1				; 
+			mov rax, -1
 _end:		ret
